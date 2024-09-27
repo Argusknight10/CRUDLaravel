@@ -19,18 +19,6 @@
                             @csrf
 
                             <div class="form-group mb-3">
-                                <label class="font-weight-bold">IMAGE</label>
-                                <input type="file" class="form-control @error('image') is-invalid @enderror" name="image">
-                            
-                                <!-- error message untuk image -->
-                                @error('image')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group mb-3">
                                 <label class="font-weight-bold">TITLE</label>
                                 <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" placeholder="Masukkan Judul Product">
                             
@@ -43,11 +31,23 @@
                             </div>
 
                             <div class="form-group mb-3">
-                                <label class="font-weight-bold">DESCRIPTION</label>
-                                <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="5" placeholder="Masukkan Description Product">{{ old('description') }}</textarea>
+                                <label class="font-weight-bold">IMAGE</label>
+                                <input type="file" class="form-control @error('image') is-invalid @enderror" name="image" value="{{ old('image') }}">
                             
-                                <!-- error message untuk description -->
-                                @error('description')
+                                <!-- error message untuk image -->
+                                @error('image')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="font-weight-bold">DESKRIPSI</label>
+                                <textarea class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi" rows="5" placeholder="Masukkan deskripsi Product">{{ old('deskripsi') }}</textarea>
+                            
+                                <!-- error message untuk deskripsi -->
+                                @error('deskripsi')
                                     <div class="alert alert-danger mt-2">
                                         {{ $message }}
                                     </div>
@@ -65,9 +65,9 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.ckeditor.com/4.25.0/standard/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
     <script>
-        CKEDITOR.replace( 'description' );
+        CKEDITOR.replace( 'deskripsi' );
     </script>
 </body>
 </html>

@@ -38,7 +38,7 @@
                                         <td>{{ $id++ }}</td>
                                         <td>{{ $berita->title }}</td>
                                         <td class="text-center">
-                                            <img src="{{ asset('/storage/beritas/'.$berita->image) }}" class="rounded" style="width: 150px" alt="image-berita">
+                                            <img src="{{ Storage::url('img/'.$berita->image) }}" class="rounded" style="width: 150px">
                                         </td>
                                         <td>{{ $berita->deskripsi }}</td>
                                         <td>{{ $berita->created_at }}</td>
