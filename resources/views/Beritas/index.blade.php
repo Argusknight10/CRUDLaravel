@@ -40,9 +40,9 @@
                                         <td class="text-center">
                                             <img src="{{ Storage::url('img/'.$berita->image) }}" class="rounded" style="width: 150px">
                                         </td>
-                                        <td>{{ $berita->deskripsi }}</td>
+                                        <td>{{ Str::limit($berita->deskripsi,150) }}</td>
                                         <td>{{ $berita->created_at }}</td>
-                                        <td>{{ $berita->deleted_at }}</td>
+                                        <td>{{ $berita->updated_at }}</td>
                                         <td class="text-center">
                                             <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('beritas.destroy', $berita->id) }}" method="POST">
                                                 <a href="{{ route('beritas.show', $berita->id) }}" class="btn btn-sm btn-dark">SHOW</a>

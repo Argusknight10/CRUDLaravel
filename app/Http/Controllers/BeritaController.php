@@ -6,6 +6,7 @@ use App\Models\Berita;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 
@@ -57,13 +58,16 @@ class BeritaController extends Controller
     }
 
     public function update(Request $request, $id): RedirectResponse{
+        $beritas = Berita::findOrFail($id);
+
         $request->validate([
-            'title'         => 'required|unique:beritas',
-            'image'         => 'required|image|mimes:jpeg,jpg,png|max:500000000',
+            'title'         => [
+                'required',
+                Rule::unique('beritas')->ignore($beritas->id)
+            ],
+            'image'         => 'nullable|image|mimes:jpeg,jpg,png|max:500000000',
             'deskripsi'   => 'required|min:10',
         ]);
-
-        $beritas = Berita::findOrFail($id);
 
         if($request->hasFile('image')){
             Storage::delete('img', 'public'.$beritas->image);
@@ -77,7 +81,7 @@ class BeritaController extends Controller
 
         $slug = Str::slug($request->title);
 
-        $beritas::update([
+        $beritas->update([
             'title'         => $request->title,
             'slug'          => $slug,
             'image'         => $filename,
