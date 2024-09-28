@@ -90,4 +90,13 @@ class BeritaController extends Controller
 
         return redirect()->route('beritas.index')->with(['success' => 'Perubahan Berhasil Disimpan!']);
     }
+
+    public function destroy($id): RedirectResponse{
+        $beritas = Berita::findOrFail($id);
+
+        Storage::delete('img'.$beritas->image);
+        $beritas->delete();
+
+        return redirect()->route('beritas.index')->with(['success' => 'Berita Berhasil Dihapus!']);
+    }
 }

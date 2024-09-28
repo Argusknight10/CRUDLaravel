@@ -54,9 +54,9 @@
                                 @enderror
                             </div>
 
-                            <button type="submit" class="btn btn-md btn-primary me-3">SAVE</button>
+                            <button type="submit" class="btn btn-md btn-primary">SAVE</button>
                             <button type="reset" class="btn btn-md btn-warning">RESET</button>
-
+                            <a href="{{ route('beritas.index') }}" class="btn btn-md btn-secondary">&laquo; BACK</a>
                         </form> 
                     </div>
                 </div>
