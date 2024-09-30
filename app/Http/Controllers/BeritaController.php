@@ -14,11 +14,12 @@ class BeritaController extends Controller
 {
     public function index() : View{
         $beritas = Berita::latest()->paginate(10);
-        return view('beritas.index', compact('beritas'));
+        // return view('beritas.index', compact('beritas')); // Sama Saja
+        return view('beritas.index', ['title' => 'NEWS PAGE', 'beritas' => $beritas]) ;
     }
 
     public function create() : View{
-        return view('beritas.create');
+        return view('beritas.create', ['title' => 'ADD NEWS']);
     }
 
     public function store(Request $request): RedirectResponse{
@@ -48,13 +49,13 @@ class BeritaController extends Controller
     public function show(string $id) : View {
         $beritas = Berita::findOrFail($id);
 
-        return view('beritas.show', compact('beritas'));
+        return view('beritas.show', ['title' => 'DETAIL NEWS', 'beritas' => $beritas]);
     }
 
     public function edit(string $id) : View {
         $beritas = Berita:: findOrFail($id);
 
-        return view('beritas.edit', compact('beritas'));
+        return view('beritas.edit', ['title' => 'EDIT NEWS', 'beritas' => $beritas]);
     }
 
     public function update(Request $request, $id): RedirectResponse{

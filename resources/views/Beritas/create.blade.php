@@ -1,73 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>ADD BERITA</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body style="background:  #D2E0FB">
+<x-layout>
+    <x-slot:title>
+        {{ $title }}
+    </x-slot:title>
 
-    <div class="container mt-5 mb-5">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card border-0 shadow-sm rounded">
-                    <div class="card-body">
-                        <form action="{{ route('beritas.store') }}" method="POST" enctype="multipart/form-data">
+    <div class="bg-base-300 rounded-lg p-5 sm:container sm:mx-auto">
+        <x-header>{{ $title }}</x-header>
+
+        <form action="{{ route('beritas.store') }}" method="POST" enctype="multipart/form-data">
                         
-                            @csrf
+            @csrf
 
-                            <div class="form-group mb-3">
-                                <label class="font-weight-bold">TITLE</label>
-                                <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" placeholder="Masukkan Judul Product">
-                            
-                                <!-- error message untuk title -->
-                                @error('title')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
+            <div class="form-group mb-3">
+                <label class="form-control w-full pt-6">
+                    <div class="label text-bold"><span class="label-text">JUDUL BERITA</span></div>
+                    <input type="text" placeholder="Tuliskan judul berita...." class="@error('title') is-invalid @enderror input input-bordered input-success w-full form-control " name="title" value="{{ old('title') }}" />
+                </label>
 
-                            <div class="form-group mb-3">
-                                <label class="font-weight-bold">IMAGE</label>
-                                <input type="file" class="form-control @error('image') is-invalid @enderror" name="image" value="{{ old('image') }}">
-                            
-                                <!-- error message untuk image -->
-                                @error('image')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label class="font-weight-bold">DESKRIPSI</label>
-                                <textarea class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi" rows="5" placeholder="Masukkan deskripsi Product">{{ old('deskripsi') }}</textarea>
-                            
-                                <!-- error message untuk deskripsi -->
-                                @error('deskripsi')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <button type="submit" class="btn btn-md btn-primary">SAVE</button>
-                            <button type="reset" class="btn btn-md btn-warning">RESET</button>
-                            <a href="{{ route('beritas.index') }}" class="btn btn-md btn-secondary">&laquo; BACK</a>
-                        </form> 
+                <!-- error message untuk title -->
+                @error('title')
+                    <div class="alert alert-error mt-2">
+                        {{ $message }}
                     </div>
-                </div>
+                @enderror
             </div>
-        </div>
-    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace( 'deskripsi' );
-    </script>
-</body>
-</html>
+            <div class="form-group mb-3">
+                <label class="font-weight-bold">IMAGE</label>
+                <input type="file" class="file-input file-input-bordered file-input-success w-full form-control @error('image') is-invalid @enderror" name="image" value="{{ old('image') }}"/>
+
+                <!-- error message untuk image -->
+                @error('image')
+                    <div class="alert alert-error mt-2">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="font-weight-bold">DESKRIPSI</label>
+                <textarea class="form-control @error('deskripsi') is-invalid @enderror textarea textarea-success w-full" name="deskripsi" rows="5" placeholder="Tuliskan isi berita...">{{ old('deskripsi') }}</textarea>
+            
+                <!-- error message untuk deskripsi -->
+                @error('deskripsi')
+                    <div class="alert alert-error mt-2">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+            <a href="{{ route('beritas.index') }}" class="btn btn-md btn-circle btn-secondary"><i class="fa-solid fa-backward"></i></a>
+            <button type="submit" class="btn btn-md btn-circle btn-info"><i class="fa-solid fa-check"></i></button>
+            <button type="reset" class="btn btn-md btn-circle btn-warning"><i class="fa-solid fa-xmark"></i></button>
+        </form> 
+    </div>
+</x-layout>

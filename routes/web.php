@@ -8,4 +8,4 @@ Route::get('/', function () {
 }); 
 
 Route::resource('/beritas', BeritaController::class);
-// Route::resource('/', BeritaController::class);
+
