@@ -27,13 +27,48 @@
             <div class="form-group mb-3">
                 <label class="font-weight-bold">IMAGE</label>
                 <input type="file" class="file-input file-input-bordered file-input-success w-full form-control @error('image') is-invalid @enderror" name="image" value="{{ old('image') }}"/>
-
                 <!-- error message untuk image -->
                 @error('image')
                     <div class="alert alert-error mt-2">
                         {{ $message }}
                     </div>
                 @enderror
+            </div>
+            
+            {{-- <div class="form-group mb-3">
+                <label class="font-weight-bold">KATEGORI</label>
+
+                <div class="dropdown dropdown-bottom">
+                    <div tabindex="0" role="button" class="btn m-1">Kategori</div>
+                    <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                        <li><a>Item 1</a></li>
+                        <li><a>Item 2</a></li>
+                    </ul>
+                </div>
+
+                @error('kategori')
+                    <div class="alert alert-error mt-2">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div> --}}
+
+            <div class="row mb-3">
+                <label for="kategori" class="text-primary col-sm-2 col-form-label">KATEGORI</label>
+                <div class="col-sm-10">
+                    <select class="form-select @error('kategori') is-invalid @enderror" id="kategori" name="kategori">
+                        @foreach ($kategori as $k) 
+                            <option value="{{ $k->id }}" {{ (old('kategori') == $k->id) ? 'selected' : ''; }} >
+                                {{ $k->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('name')
+                        <div class="alert alert-error mt-2">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
             </div>
 
             <div class="form-group mb-3">

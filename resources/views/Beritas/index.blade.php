@@ -10,6 +10,7 @@
                     <th scope="col">NO</th>
                     <th scope="col">TITLE</th>
                     <th scope="col">IMAGE</th>
+                    <th scope="col">KATEGORI</th>
                     <th scope="col">DESKRIPSI</th>
                     <th scope="col">TGL_BUAT</th>
                     <th scope="col">TGL_UBAH</th>
@@ -17,14 +18,17 @@
                 </tr>
             </thead>
             <tbody>
+                
                 <?php $id = 1; ?>
                 @forelse ($beritas as $berita)
+                {{-- {{ dd($berita) }} --}}
                     <tr class="text-center">
                         <td>{{ $id++ }}</td>
                         <td>{{ $berita->title }}</td>
                         <td>
                             <img src="{{ Storage::url('img/' . $berita->image) }}" class="rounded" style="width: 300px">
                         </td>
+                        <td>{{ $berita->kategori->name}}</td>
                         <td><code>{!! Str::limit($berita->deskripsi, 150) !!}</code></td>
                         <td>{{ $berita->created_at }}</td>
                         <td>{{ $berita->updated_at }}</td>
@@ -42,8 +46,8 @@
                         </td>
                     </tr>
                 @empty
-                    <div class="alert alert-danger">
-                        Data beritas belum Tersedia.
+                    <div class="alert alert-error my-5">
+                        Data berita belum Tersedia.
                     </div>
                 @endforelse
             </tbody>
@@ -53,6 +57,7 @@
                     <th scope="col">NO</th>
                     <th scope="col">TITLE</th>
                     <th scope="col">IMAGE</th>
+                    <th scope="col">KATEGORI</th>
                     <th scope="col">DESKRIPSI</th>
                     <th scope="col">TGL_BUAT</th>
                     <th scope="col">TGL_UBAH</th>

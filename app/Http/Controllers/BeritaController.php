@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Berita;
+use App\Models\Kategori;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -15,17 +16,19 @@ class BeritaController extends Controller
     public function index() : View{
         $beritas = Berita::latest()->paginate(10);
         // return view('beritas.index', compact('beritas')); // Sama Saja
+
         return view('beritas.index', ['title' => 'NEWS PAGE', 'beritas' => $beritas]) ;
     }
 
     public function create() : View{
-        return view('beritas.create', ['title' => 'ADD NEWS']);
+        return view('beritas.create', ['title' => 'ADD NEWS', 'kategori' => Kategori::all()]);
     }
 
     public function store(Request $request): RedirectResponse{
         $request->validate([
             'title'         => 'required|unique:beritas',
             'image'         => 'required|image|mimes:jpeg,jpg,png|max:500000000',
+            'kategori'      => 'required',
             'deskripsi'   => 'required|min:10',
         ]);
 
@@ -40,6 +43,7 @@ class BeritaController extends Controller
             'title'         => $request->title,
             'slug'          => $slug,
             'image'         => $filename,
+            'kategori_id'      => $request->kategori,
             'deskripsi'   => $request->deskripsi,
         ]);
         
@@ -55,7 +59,7 @@ class BeritaController extends Controller
     public function edit(string $id) : View {
         $beritas = Berita:: findOrFail($id);
 
-        return view('beritas.edit', ['title' => 'EDIT NEWS', 'beritas' => $beritas]);
+        return view('beritas.edit', ['title' => 'EDIT NEWS', 'beritas' => $beritas, 'kategori' => Kategori::all()]);
     }
 
     public function update(Request $request, $id): RedirectResponse{
@@ -86,6 +90,7 @@ class BeritaController extends Controller
             'title'         => $request->title,
             'slug'          => $slug,
             'image'         => $filename,
+            'kategori_id'      => $request->kategori,
             'deskripsi'     => $request->deskripsi,
         ]);
 
