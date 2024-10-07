@@ -8,12 +8,16 @@ use Illuminate\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 
 class BeritaController extends Controller
 {
     public function index() : View{
+        Gate::authorize('admin');
+
         $beritas = Berita::latest()->paginate(10);
         // return view('beritas.index', compact('beritas')); // Sama Saja
 
@@ -21,6 +25,7 @@ class BeritaController extends Controller
     }
 
     public function create() : View{
+        Gate::authorize('admin');
         return view('beritas.create', ['title' => 'ADD NEWS', 'kategori' => Kategori::all()]);
     }
 
@@ -57,6 +62,7 @@ class BeritaController extends Controller
     }
 
     public function edit(string $id) : View {
+        Gate::authorize('admin');
         $beritas = Berita:: findOrFail($id);
 
         return view('beritas.edit', ['title' => 'EDIT NEWS', 'beritas' => $beritas, 'kategori' => Kategori::all()]);
@@ -74,8 +80,10 @@ class BeritaController extends Controller
             'deskripsi'   => 'required|min:10',
         ]);
 
-        if($request->hasFile('image')){
-            Storage::delete('img', 'public'.$beritas->image);
+        if ($request->hasFile('image')) {
+            if ($beritas->image) { 
+                Storage::disk('public')->delete('img/' . $beritas->image); 
+            }
 
             $image = $request->file('image');
             $path = $image->store('img', 'public');
@@ -98,6 +106,7 @@ class BeritaController extends Controller
     }
 
     public function destroy($id): RedirectResponse{
+        Gate::authorize('admin');
         $beritas = Berita::findOrFail($id);
 
         Storage::delete('img'.$beritas->image);
