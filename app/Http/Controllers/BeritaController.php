@@ -77,6 +77,7 @@ class BeritaController extends Controller
                 Rule::unique('beritas')->ignore($beritas->id)
             ],
             'image'         => 'nullable|image|mimes:jpeg,jpg,png|max:500000000',
+            'kategori'         => 'nullable',
             'deskripsi'   => 'required|min:10',
         ]);
 
