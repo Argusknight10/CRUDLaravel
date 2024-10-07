@@ -1,16 +1,23 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\RegisterController;
 
-Route::get('/', function () {
-    return view('home', ['title' => 'HOME PAGE']);
-}); 
+Route::get('/', [HomeController::class, 'index']);
 
-Route::resource('/beritas', BeritaController::class);
-Route::resource('/kategoris', KategoriController::class);
-// Route::get('/login', [LoginController::class, 'login']);
-// Route::get('/register', [RegisterController::class, 'register']);
+Route::resource('/beritas', BeritaController::class)->middleware('auth');
+Route::resource('/users', UserController::class)->middleware('auth');
+Route::resource('/kategoris', KategoriController::class)->middleware('auth');
+
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::post('/login', [LoginController::class, 'authenticate']);
+
+Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
+
+Route::resource('/register', RegisterController::class)->middleware('guest');
 

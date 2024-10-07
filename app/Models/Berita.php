@@ -26,9 +26,9 @@ class Berita extends Model
     }
 
     public function scopeFilter(Builder $query, array $filters){
-        // $query->when(isset($filters['search']) ? $filters['search'] : false, function($query, $search){
-        //     $query->where('title', 'like', '%'.$search.'%');
-        // });
+        $query->when(isset($filters['search']) ? $filters['search'] : false, function($query, $search){
+            $query->where('title', 'like', '%'.$search.'%');
+        });
 
         $query->when(isset($filters['kategori']) ? $filters['kategori'] : false, function($query, $kategori){
             $query->whereHas('kategori', function($query) use ($kategori){
