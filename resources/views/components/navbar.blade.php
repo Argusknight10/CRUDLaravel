@@ -17,7 +17,10 @@
 
     <div class="navbar-end flex items-center gap-4">
         <div class="form-control">
-            <input type="text" placeholder="Search" class="input input-bordered w-48 md:w-64" />
+            <div class="relative w-48 md:w-64">
+                <input type="text" placeholder="Search..." class="input input-bordered w-full pl-10 pr-4" />
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
+            </div>
         </div>
         @auth
             <h1 class="font-bold text-sm">{{ auth()->user()->name }}</h1 class="font-bold text-md">
