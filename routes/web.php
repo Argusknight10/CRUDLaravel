@@ -11,7 +11,8 @@ use App\Http\Controllers\RegisterController;
 Route::get('/', [HomeController::class, 'index']);
 Route::resource('/detail', HomeController::class);
 
-Route::resource('/beritas', BeritaController::class)->middleware('auth');
+Route::resource('/beritas', BeritaController::class);
+// Route::get('/beritas/id', [BeritaController::class, 'show'])->middleware('');
 Route::resource('/users', UserController::class)->middleware('auth');
 Route::resource('/kategoris', KategoriController::class)->middleware('auth');
 

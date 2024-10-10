@@ -57,8 +57,9 @@ class BeritaController extends Controller
 
     public function show(string $id) : View {
         $beritas = Berita::findOrFail($id);
+        $beritaLain = Berita::paginate(10);
 
-        return view('beritas.show', ['title' => 'DETAIL NEWS', 'beritas' => $beritas]);
+        return view('beritas.show', ['title' => 'DETAIL NEWS', 'beritas' => $beritas, 'beritaLain' => $beritaLain]);
     }
 
     public function edit(string $id) : View {
