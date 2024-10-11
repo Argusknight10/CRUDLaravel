@@ -11,20 +11,30 @@
 </head>
 
 <body class="h-full">
-    <div class="min-h-full drawer">
-        <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
-        <div class="drawer-content flex flex-col">
-            <!-- Navbar -->
-            <x-navbar></x-navbar>
+    @if(Gate::allows('admin'))
+        <div class="min-h-full drawer">
+            <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
+            <div class="drawer-content flex flex-col">
+                <!-- Navbar -->
+                <x-navbar></x-navbar>
 
-            <!-- Page content here -->
-            <div class="p-8">
-                {{ $slot }}
+                <!-- Page content here -->
+                <div class="p-8">
+                    {{ $slot }}
+                </div>
             </div>
+            <x-sidebar></x-sidebar>
         </div>
-        <x-sidebar></x-sidebar>
-    </div>
+    @else
+        <!-- Navbar -->
+        <x-navbar></x-navbar>
+        <x-navbar-user></x-navbar-user>
 
+        <!-- Page content here -->
+        <div class="p-8">
+            {{ $slot }}
+        </div>
+    @endif
     <x-footer></x-footer>
 
 

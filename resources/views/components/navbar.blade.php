@@ -1,13 +1,15 @@
-<div class="navbar bg-success w-full text-stone-950">
+<div class="navbar bg-success w-full text-stone-950 py-5">
     <div class="navbar-start">
         <div class="flex-none">
-            <label for="my-drawer-3" aria-label="open sidebar" class="btn btn-square btn-natural">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                    class="inline-block h-6 w-6 stroke-current">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-            </label>
+            @if (Gate::allows('admin'))
+                <label for="my-drawer-3" aria-label="open sidebar" class="btn btn-square btn-natural">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        class="inline-block h-6 w-6 stroke-current">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </label>
+            @endif
         </div>
     </div>
     
@@ -16,12 +18,6 @@
     </div>
 
     <div class="navbar-end flex items-center gap-4">
-        <div class="form-control">
-            <div class="relative w-48 md:w-64">
-                <input type="text" placeholder="Search..." class="input input-bordered w-full pl-10 pr-4" />
-                <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
-            </div>
-        </div>
         @auth
             <h1 class="font-bold text-sm">{{ auth()->user()->name }}</h1 class="font-bold text-md">
             <div class="dropdown dropdown-end">

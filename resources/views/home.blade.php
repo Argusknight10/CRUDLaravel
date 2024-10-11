@@ -3,17 +3,16 @@
         {{ $title }}
     </x-slot:title>
 
-    <nav class="bg-white shadow dark:bg-gray-800">
-        <div class="container flex items-center justify-center p-6 mx-auto text-gray-600 capitalize dark:text-gray-300">
-            <a href="#" class="text-gray-800 transition-colors duration-300 transform dark:text-gray-200 border-b-2 border-blue-500 mx-1.5 sm:mx-6">home</a>
-    
-            <a href="#" class="border-b-2 border-transparent hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6">features</a>
-    
-            <a href="#" class="border-b-2 border-transparent hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6">pricing</a>
-    
-            <a href="#" class="border-b-2 border-transparent hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6">blog</a>
+    <section>
+        <div class="container px-6 mx-auto">
+            <div class="form-control w-full">
+                <div class="relative">
+                    <input type="text" placeholder="Search..." class="input input-bordered w-full pl-10 pr-4" />
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
+                </div>
+            </div>
         </div>
-    </nav>
+    </section>
 
     <section class="">
         <div class="container px-6 py-10 mx-auto">
