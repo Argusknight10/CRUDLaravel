@@ -6,7 +6,7 @@
     <section class="overflow-hidden rounded-lg">
         <div class="container px-6 py-10 mx-auto">
             <div class="card-actions py-5">
-                @if (Gate::denies('!admin'))
+                @if (Gate::denies('admin'))
                     <a href="/" class="btn btn-sm btn-outline"><i class="fa-solid fa-arrow-left"></i> BACK</a>
                 @else
                     <a href="{{ route('beritas.index') }}" class="btn btn-sm btn-outline"><i class="fa-solid fa-arrow-left"></i> BACK</a>
@@ -28,23 +28,25 @@
                     </div>
                 </div>
     
-                <div class="mt-8 lg:w-1/4 lg:mt-0 lg:px-6">
-                        @foreach ($beritaLain as $bl)
-                            <div>
-                                <h3 class="text-blue-500 capitalize">{{ $bl->title }}</h3>
-            
-                                <a href="{{ route('beritas.show', $bl->id) }}" class="block mt-2 font-medium text-gray-700 hover:underline hover:text-gray-500 dark:text-gray-400 ">
-                                    <code>
-                                        {!! Str::limit($bl->deskripsi, 100) !!}
-                                    </code>
-                                </a>
-                            </div>
-            
-                            <hr class="my-6 border-gray-200 dark:border-gray-700">
-                        @endforeach
-                    {{-- PAGINATION --}}
-                    {{ $beritaLain->links() }}
-                </div>
+                @if (Gate::denies('admin'))
+                    <div class="mt-8 lg:w-1/4 lg:mt-0 lg:px-6">
+                            @foreach ($beritaLain as $bl)
+                                <div>
+                                    <h3 class="text-blue-500 capitalize">{{ $bl->title }}</h3>
+                
+                                    <a href="{{ route('beritas.show', $bl->id) }}" class="block mt-2 font-medium text-gray-700 hover:underline hover:text-gray-500 dark:text-gray-400 ">
+                                        <code>
+                                            {!! Str::limit($bl->deskripsi, 100) !!}
+                                        </code>
+                                    </a>
+                                </div>
+                
+                                <hr class="my-6 border-gray-200 dark:border-gray-700">
+                            @endforeach
+                        {{-- PAGINATION --}}
+                        {{ $beritaLain->links() }}
+                    </div>
+                @endif
             </div>       
         </div>
     </section>
