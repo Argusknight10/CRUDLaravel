@@ -7,6 +7,7 @@ use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 
@@ -37,13 +38,27 @@ class UserController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'username' => 'required|unique:users|min:3|max:255',
-            'email' => 'required|email:dns|unique:users',
-            'password' => 'required|min:5|max:255'
+            'username' => 'required|min:3|max:255|unique:users,username,' . $id,
+            'email' => 'required|email:dns|unique:users,email,' . $id,
+            'old_password' => 'nullable',
+            'new_password' => 'nullable|min:5|max:255|confirmed',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
+        if ($request->filled('new_password')) {
+            if (!Hash::check($request->old_password, $users->password)) {
+                return back()->with(['error' => 'Password lama salah.']);
+            }
+    
+            $password = Hash::make($request->new_password);
+        } else {
+            $password = $users->password;
+        }
+
         if($request->hasFile('image')){
-            Storage::delete('img', 'public'.$users->image);
+            if ($users->image !== 'default.png') {
+                Storage::disk('public')->delete('img/' . $users->image); 
+            }
 
             $image = $request->file('image');
             $path = $image->store('img', 'public');
@@ -56,16 +71,24 @@ class UserController extends Controller
             'name' => $request->name,
             'username' => $request->username,
             'email' => $request->email,
-            'password' => $request->password
+            'password' => $password,
+            'image' => $filename
         ]);
 
-        return redirect()->route('users.index')->with(['success' => 'Perubahan Berhasil Disimpan!']);
+        if (Gate::allows('admin')) {
+            return redirect()->route('users.index')->with(['success' => 'Perubahan Berhasil Disimpan!']);
+        } else {
+            return redirect('/')->with(['success' => 'Perubahan Berhasil Disimpan!']);
+        }
     }
 
     public function destroy($id): RedirectResponse{
         Gate::authorize('admin');
         $users = User::findOrFail($id);
 
+        if ($users->image !== 'default.png') {
+            Storage::disk('public')->delete('img/' . $users->image); 
+        }
         $users->delete();
 
         return redirect()->route('users.index')->with(['success' => 'User Berhasil Dihapus!']);
