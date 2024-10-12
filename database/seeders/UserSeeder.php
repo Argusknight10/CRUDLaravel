@@ -18,19 +18,20 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Arya Bagus',
             'username' => 'ARGUS',
-            'image' => 'public/storage/img/default.png',
+            'image' => 'default.png',
             'email' => 'arguspermono19@gmail.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('password'),
+            'is_admin' => '1',
+            'password' => Hash::make('argus123'),
             'remember_token' => Str::random(10)
         ]);
         User::create([
             'name' => 'Selly Ajeng',
             'username' => 'PAUSS',
-            'image' => 'public/storage/img/default.png',
+            'image' => 'default.png',
             'email' => 'blablabla@gmail.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('password'),
+            'password' => Hash::make('selly123'),
             'remember_token' => Str::random(10)
         ]);
     }
