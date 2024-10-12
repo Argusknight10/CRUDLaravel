@@ -16,10 +16,9 @@ return new class extends Migration
             $table->string('title')->unique();
             $table->string('slug');
             $table->string('image');
-            $table->foreignId('kategori_id')->constrained(
-                table: 'kategoris',
-                indexName: 'beritas_kategori_id'
-            );
+            $table->foreignId('kategori_id')
+                    ->constrained('kategoris') 
+                    ->onDelete('cascade');    
             $table->text('deskripsi');
             $table->timestamps();
         });
