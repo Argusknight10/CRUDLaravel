@@ -4,10 +4,7 @@
     </x-slot:title>
 
     <section>
-        <form action="" >
-            @if(request('kategori'))
-            <input type="hidden" name="kategori" value="{{ request('kategori') }}">
-            @endif
+        <form action="/berita" >
             <div class="container mx-auto mb-3 space-y-4 max-w-screen-xl sm:flex sm:space-y-0">
                 <div class="relative w-full">
                     <input type="text" placeholder="Search..." type="search" id="search" name="search" class="input input-bordered w-full pl-10 pr-4" />
@@ -91,6 +88,8 @@
                         </div>
                     </div>
                 @endforeach
+
+                {{ $berita2->links() }}
             </div>
         </div>
     </section>
@@ -115,6 +114,8 @@
                         </div>
                     </div>
                 @endforeach
+
+                {{ $berita2->links() }}
             </div>
         </div>
     </section>

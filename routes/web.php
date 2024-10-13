@@ -9,6 +9,7 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\RegisterController;
 
 Route::get('/', [HomeController::class, 'index']);
+Route::get('/berita', [HomeController::class, 'berita']);
 Route::resource('/detail', HomeController::class);
 
 Route::resource('/beritas', BeritaController::class);

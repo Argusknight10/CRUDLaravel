@@ -26,14 +26,13 @@ class Berita extends Model
     }
 
     public function scopeFilter(Builder $query, array $filters){
-        $query->when(isset($filters['search']) ? $filters['search'] : false, function($query, $search){
-            $query->where('title', 'like', '%'.$search.'%');
-        });
-
-        $query->when(isset($filters['kategori']) ? $filters['kategori'] : false, function($query, $kategori){
-            $query->whereHas('kategori', function($query) use ($kategori){
-                $query->where('slug', $kategori);
+        $query->when(($filters['search']) ? $filters['search'] : false, function($query, $search){
+            $query->where('title', 'like', '%'.$search.'%')
+                  ->orWhereHas('kategori', function($query) use ($search) {
+                    $query->where('name', 'like', '%' . $search . '%');
             });
         });
+
+        // dd($filters);
     }
 }
