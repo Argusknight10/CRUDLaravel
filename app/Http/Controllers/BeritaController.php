@@ -77,8 +77,8 @@ class BeritaController extends Controller
                 'required',
                 Rule::unique('beritas')->ignore($beritas->id)
             ],
-            'image'         => 'nullable|image|mimes:jpeg,jpg,png|max:500000000',
-            'kategori'         => 'nullable',
+            'image'       => 'nullable|image|mimes:jpeg,jpg,png|max:500000000',
+            'kategori'    => 'nullable',
             'deskripsi'   => 'required|min:10',
         ]);
 
@@ -94,13 +94,18 @@ class BeritaController extends Controller
             $filename = $beritas->image;
         }
 
+        $kategoriId = $request->kategori;
+        if ($kategoriId === null) {
+            $kategoriId = $beritas->kategori_id; 
+        }
+
         $slug = Str::slug($request->title);
 
         $beritas->update([
             'title'         => $request->title,
             'slug'          => $slug,
             'image'         => $filename,
-            'kategori_id'      => $request->kategori,
+            'kategori_id'   => $kategoriId,
             'deskripsi'     => $request->deskripsi,
         ]);
 
@@ -111,7 +116,9 @@ class BeritaController extends Controller
         Gate::authorize('admin');
         $beritas = Berita::findOrFail($id);
 
-        Storage::delete('img'.$beritas->image);
+        if ($beritas->image) { 
+            Storage::disk('public')->delete('img/' . $beritas->image);
+        }
         $beritas->delete();
 
         return redirect()->route('beritas.index')->with(['success' => 'Berita Berhasil Dihapus!']);

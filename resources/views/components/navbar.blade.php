@@ -29,7 +29,7 @@
                 </label>
 
                 <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow text-white">
-                    <li><a href="">Profile</a></li>
+                    <li><a href="{{ route('users.edit', auth()->user()->id) }}">Profile</a></li>
 
                     <form action="/logout" method="post">
                         <li>

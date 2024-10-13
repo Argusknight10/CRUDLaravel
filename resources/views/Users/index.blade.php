@@ -30,10 +30,8 @@
                         <td>{{ $user->created_at }}</td>
                         <td>{{ $user->updated_at }}</td>
                         <td class="">
-                            <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                action="{{ route('users.destroy', $user->id) }}" method="POST">
-                                <a href="{{ route('users.show', $user->id) }}"
-                                    class="btn btn-circle btn-outline btn-info"><i class="fa-solid fa-eye"></i></a>
+                            <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('users.destroy', $user->id) }}" method="POST">
+                                <a href="{{ route('users.show', $user->id) }}"class="btn btn-circle btn-outline btn-info"><i class="fa-solid fa-eye"></i></a>
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-circle btn-outline btn-error"><i class="fa-solid fa-trash-can"></i></button>

@@ -4,15 +4,19 @@
     </x-slot:title>
 
     <section>
-        <div class="container px-6 mx-auto">
-            <div class="form-control w-full">
-                <div class="relative">
-                    <input type="text" placeholder="Search..." class="input input-bordered w-full pl-10 pr-4" />
+        <form action="/berita" >
+            <div class="container mx-auto mb-3 space-y-4 max-w-screen-xl sm:flex sm:space-y-0">
+                <div class="relative w-full">
+                    <input type="text" placeholder="Search..." type="search" id="search" name="search" class="input input-bordered w-full pl-10 pr-4" />
                     <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
                 </div>
+                <div>
+                    <button type="submit" class="py-3 px-5 w-full text-sm font-medium text-center text-white border rounded-lg autocomplete="off">Search</button>
+                </div>
             </div>
-        </div>
+        </form>
     </section>
+    
 
     <section class="">
         <div class="container px-6 py-10 mx-auto">
@@ -84,6 +88,8 @@
                         </div>
                     </div>
                 @endforeach
+
+                {{ $berita2->links() }}
             </div>
         </div>
     </section>
@@ -108,6 +114,8 @@
                         </div>
                     </div>
                 @endforeach
+
+                {{ $berita2->links() }}
             </div>
         </div>
     </section>

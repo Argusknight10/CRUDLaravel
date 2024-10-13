@@ -17,7 +17,6 @@
                     <input type="text" placeholder="Tuliskan nama kategori...." class="@error('name') is-invalid @enderror input input-bordered input-success w-full form-control " name="name" value="{{ old('name', $kategoris->name) }}" />
                 </label>
 
-                <!-- error message untuk kategori -->
                 @error('kategori')
                     <div class="alert alert-error mt-2">
                         {{ $message }}
