@@ -50,7 +50,9 @@
                 </tr>
             </tfoot>
         </table>
-        {{-- PAGINATION --}}
-        {{ $kategoris->links() }}
+        <div class="py-10">
+            {{-- PAGINATION --}}
+            {{ $kategoris->links() }}
+        </div>
     </div>
 </x-layout>

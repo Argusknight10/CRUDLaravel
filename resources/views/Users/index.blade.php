@@ -58,7 +58,9 @@
                 </tr>
             </tfoot>
         </table>
-        {{-- PAGINATION --}}
-        {{ $users->links() }}
+        <div class="py-10">
+            {{-- PAGINATION --}}
+            {{ $users->links() }}
+        </div>
     </div>
 </x-layout>

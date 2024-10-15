@@ -49,8 +49,10 @@
             
                             <hr class="my-6 border-gray-200 dark:border-gray-700">
                         @endforeach
-                    {{-- PAGINATION --}}
-                    {{ $berita3->links() }}
+                    <div class="py-5">
+                        {{-- PAGINATION --}}
+                        {{ $berita3->links() }}
+                    </div>
                 </div>
             </div>       
         </div>

@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\ForgetController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\RegisterController;
 
@@ -21,6 +22,7 @@ Route::get('/login', [LoginController::class, 'index'])->name('login')->middlewa
 Route::post('/login', [LoginController::class, 'authenticate']);
 
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
-
 Route::resource('/register', RegisterController::class)->middleware('guest');
+// Route::resource('/forget', ForgetController::class)->middleware('guest');
+
 

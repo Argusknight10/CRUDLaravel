@@ -4,7 +4,6 @@
     <div class="overflow-x-auto bg-base-300 p-5 rounded-lg">
         <a href="{{ route('beritas.create') }}" class="btn btn-square btn-success"><i class="fa-solid fa-plus"></i></a>
         <table class="table">
-            <!-- head -->
             <thead>
                 <tr class="text-center">
                     <th scope="col">NO</th>
@@ -51,7 +50,6 @@
                     </div>
                 @endforelse
             </tbody>
-            <!-- foot -->
             <tfoot>
                 <tr class="text-center">
                     <th scope="col">NO</th>
@@ -65,7 +63,9 @@
                 </tr>
             </tfoot>
         </table>
-        {{-- PAGINATION --}}
-        {{ $beritas->links() }}
+        <div class="py-10">
+            {{-- PAGINATION --}}
+            {{ $beritas->links() }}
+        </div>
     </div>
 </x-layout>
