@@ -21,8 +21,13 @@ Route::resource('/kategoris', KategoriController::class)->middleware('auth');
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
 
+// FORGET PASSWORD
+Route::get('/forget', [ForgetController::class, 'index'])->name('forget.index')->middleware('guest');
+Route::post('/forget', [ForgetController::class, 'prosesEmail'])->name('forget.email')->middleware('guest');
+Route::get('/reset', [ForgetController::class, 'resetPassword'])->name('forget.reset')->middleware('guest');
+Route::post('/reset', [ForgetController::class, 'verifPassword'])->name('forget.verification')->middleware('guest');
+
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 Route::resource('/register', RegisterController::class)->middleware('guest');
-// Route::resource('/forget', ForgetController::class)->middleware('guest');
 
 
