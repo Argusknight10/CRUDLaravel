@@ -5,7 +5,5 @@
         <a href="/berita" class="border-b-2 {{ request()->is('berita') ? 'border-blue-500' : 'border-transparent' }} hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 mx-1.5 sm:mx-6">berita</a>
 
         <a href="#" class="border-b-2 {{ request()->is('poster') ? 'border-blue-500' : 'border-transparent' }} hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 mx-1.5 sm:mx-6">poster</a>
-
-        <a href="#" class="border-b-2 {{ request()->is('artikel') ? 'border-blue-500' : 'border-transparent' }} hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 mx-1.5 sm:mx-6">artikel</a>
     </div>
 </nav>

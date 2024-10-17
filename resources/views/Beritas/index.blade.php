@@ -2,7 +2,10 @@
     <x-slot:title>{{ $title }}</x-slot:title>
 
     <div class="overflow-x-auto bg-base-300 p-5 rounded-lg">
-        <a href="{{ route('beritas.create') }}" class="btn btn-square btn-success"><i class="fa-solid fa-plus"></i></a>
+        <div class="flex py-5">
+            <a href="{{ route('beritas.create') }}" class="btn btn-square btn-success"><i class="fa-solid fa-plus"></i></a>
+            <h1 class="text-2xl uppercase py-1 px-5">dashboard berita</h1>
+        </div>
         <table class="table">
             <thead>
                 <tr class="text-center">
@@ -28,7 +31,7 @@
                             <img src="{{ Storage::url('img/' . $berita->image) }}" class="rounded" style="width: 300px">
                         </td>
                         <td>{{ $berita->kategori->name}}</td>
-                        <td><code>{!! Str::limit($berita->deskripsi, 150) !!}</code></td>
+                        <td class="text-left w-20"><code class="block max-w-full overflow-auto break-words rounded">{!! Str::limit($berita->deskripsi, 50) !!}</code></td>
                         <td>{{ $berita->created_at }}</td>
                         <td>{{ $berita->updated_at }}</td>
                         <td class="">

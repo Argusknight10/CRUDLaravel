@@ -51,7 +51,7 @@
                         @endforeach
                     <div class="py-5">
                         {{-- PAGINATION --}}
-                        {{ $berita3->links() }}
+                        {{-- {{ $berita3->links() }} --}}
                     </div>
                 </div>
             </div>       

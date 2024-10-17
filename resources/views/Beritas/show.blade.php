@@ -18,11 +18,11 @@
                         <img class="object-cover w-full h-90" src="{{ Storage::url('img/' . $beritas->image) }}" alt="BeritaImage">
                     </figure>
     
-                    <div>
+                    <div class="">
                         <h1 class="py-3 mt-4 text-2xl font-semibold leading-tight text-gray-800 dark:text-white">
                             {{ $beritas->title }}
                         </h1>
-                        <code>
+                        <code class="block max-w-full overflow-auto break-words rounded">
                             <p class="mt-2 text-sm">{!! $beritas->deskripsi !!}</p>
                         </code>
                     </div>

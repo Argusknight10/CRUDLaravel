@@ -9,19 +9,19 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function index(Request $request) {
-    $berita1 = Berita::first();
+        $berita1 = Berita::first();
 
-    $search = $request->input('search');
+        $search = $request->input('search');
 
-    if ($search) {
-        return redirect('/berita')->with([
-            'search' => $search,
-        ]);
-    } else {
-        $berita2 = Berita::paginate(4);
-    }
+        if ($search) {
+            return redirect('/berita')->with([
+                'search' => $search,
+            ]);
+        } else {
+            $berita2 = Berita::paginate(4);
+        }
 
-    $berita3 = Berita::paginate(2);
+        $berita3 = Berita::paginate(2);
 
         return view('home', ['title' => 'HOME PAGE', 'berita1' => $berita1, 'berita2' => session('berita2', $berita2), 'berita3' => $berita3, 'search' => $search]);
     }

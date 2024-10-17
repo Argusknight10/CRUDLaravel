@@ -69,6 +69,7 @@
                         </form>
     
                         <p class="mt-6 text-sm text-center text-gray-400">Don't have an account yet? <a href="/register" class="text-blue-500 focus:outline-none focus:underline hover:underline">Register Now</a> !!</p>
+                        <p class=" text-sm text-center text-gray-400">Don't want to login? <a href="/" class="text-blue-500 focus:outline-none focus:underline hover:underline">Back to Home</a></p>
                     </div>
                 </div>
             </div>

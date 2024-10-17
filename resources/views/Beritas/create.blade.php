@@ -29,7 +29,7 @@
             <div class="form-group mb-3">
                 <label for="image" class="font-weight-bold">IMAGE</label>
                 <div class="col-sm-3 mb-5 mt-1">
-                    <img src="{{ Storage::url('img/default.jpg') }}"  class="img-image img-preview" width="300px">
+                    <img src="{{ Storage::url('img/default.jpg') }}" class="img-image img-preview" width="300px">
                 </div>
 
                 <input type="file"

@@ -29,7 +29,7 @@ class KategoriController extends Controller
     public function store(Request $request): RedirectResponse{
 
         $request->validate([
-            'name'         => 'required|unique:kategoris',
+            'name'         => 'required|uppercase|unique:kategoris',
         ]);
 
         $slug = Str::slug($request->name);
@@ -55,7 +55,7 @@ class KategoriController extends Controller
 
         $request->validate([
             'name'         => [
-                'required',
+                'required|uppercase',
                 Rule::unique('kategoris')->ignore($kategoris->id)
             ]
         ]);

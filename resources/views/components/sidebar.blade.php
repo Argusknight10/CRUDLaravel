@@ -10,6 +10,7 @@
             <li class="border-b-2 py-1"><a href="/users">User</a></li>
             <li class="border-b-2 py-1"><a href="/beritas">Berita</a></li>
             <li class="border-b-2 py-1"><a href="/kategoris">Kategori</a></li>
+            <li class="border-b-2 py-1"><a href="/posters">Poster</a></li>
         @endcan
 
         <li class="border-b-2 py-1"><a href="">Logout</a></li>
