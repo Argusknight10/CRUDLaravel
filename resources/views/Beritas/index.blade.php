@@ -31,7 +31,7 @@
                             <img src="{{ Storage::url('img/' . $berita->image) }}" class="rounded" style="width: 300px">
                         </td>
                         <td>{{ $berita->kategori->name}}</td>
-                        <td class="text-left w-20"><code class="block max-w-full overflow-auto break-words rounded">{!! Str::limit($berita->deskripsi, 50) !!}</code></td>
+                        <td class="text-left w-20"><div class="block max-w-full overflow-auto break-words rounded">{!! Str::limit($berita->deskripsi, 50) !!}</div></td>
                         <td>{{ $berita->created_at }}</td>
                         <td>{{ $berita->updated_at }}</td>
                         <td class="">

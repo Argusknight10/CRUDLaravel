@@ -26,31 +26,22 @@
     <section class="">
         <div class="container px-6 py-10 mx-auto">
             <div class="grid grid-cols-1 gap-8 mt-8 lg:grid-cols-2">
-                @foreach ($konten_berita as $kb)
-                    <div>
-                        <img class="relative z-10 object-cover w-full rounded-md h-96"
-                            src="{{ Storage::url('img/' . $kb->image) }}" alt="{{ $kb->image }}">
+                @foreach ($konten_poster as $kp)
+                    <div class="lg:flex">
+                        <img class="object-cover w-full rounded-lg" style="width: 300px; height:400px;"
+                            src="{{ Storage::url('img/' . $kp->image) }}" alt="">
 
-                        <div
-                            class="relative z-20 max-w-lg p-6 mx-auto -mt-20 bg-white rounded-md shadow dark:bg-gray-900">
-                            <a href="{{ route('beritas.show', $kb->id) }}"
-                                class="font-semibold text-gray-800 hover:underline dark:text-white md:text-xl">
-                                {{ $kb->title }}
+                        <div class="py-6 lg:mx-6">
+                            <a href="{{ route('posters.show', $kp->id) }}"
+                                class="text-xl font-semibold text-gray-800 hover:underline dark:text-white ">
+                                <h1>{{ $kp->title }}</h1>
                             </a>
-
-
-                            <p class="mt-3 text-sm text-gray-500 dark:text-gray-300 md:text-sm">
-                                <code>
-                                    {!! Str::limit($kb->deskripsi, 100) !!}
-                                </code>
-                            </p>
-
-                            <p class="mt-3 text-sm text-blue-500">{{ $kb->created_at->diffForHumans() }}</p>
+                            <p class="text-sm text-gray-500">{{ $kp->created_at->diffForHumans() }}</p>
                         </div>
                     </div>
                 @endforeach
 
-                {{ $konten_berita->links() }}
+                {{ $konten_poster->links() }}
             </div>
         </div>
     </section>

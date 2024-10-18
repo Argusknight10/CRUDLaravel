@@ -13,7 +13,7 @@
                 @endif
             </div>
             <div class="lg:flex lg:-mx-6">
-                <div class="lg:w-3/4 lg:px-6">
+            <div class="lg:w-3/4 lg:px-6">
                     <figure>
                         <img class="object-cover w-full h-90" src="{{ Storage::url('img/' . $beritas->image) }}" alt="BeritaImage">
                     </figure>
@@ -22,9 +22,9 @@
                         <h1 class="py-3 mt-4 text-2xl font-semibold leading-tight text-gray-800 dark:text-white">
                             {{ $beritas->title }}
                         </h1>
-                        <code class="block max-w-full overflow-auto break-words rounded">
+                        <div class="block max-w-full overflow-auto break-words rounded">
                             <p class="mt-2 text-sm">{!! $beritas->deskripsi !!}</p>
-                        </code>
+                        </div>
                     </div>
                 </div>
     

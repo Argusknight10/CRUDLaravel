@@ -12,12 +12,13 @@ use App\Http\Controllers\RegisterController;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/berita', [HomeController::class, 'berita']);
+Route::get('/poster', [HomeController::class, 'poster']);
 Route::resource('/detail', HomeController::class);
 
 Route::resource('/beritas', BeritaController::class);
 Route::resource('/users', UserController::class)->middleware('auth');
 Route::resource('/kategoris', KategoriController::class)->middleware('auth');
-Route::resource('/posters', PosterController::class)->middleware('auth');
+Route::resource('/posters', PosterController::class);
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);

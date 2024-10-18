@@ -12,6 +12,7 @@
                     <th scope="col">NO</th>
                     <th scope="col">TITLE</th>
                     <th scope="col">IMAGE</th>
+                    <th scope="col">DESKRIPSI</th>
                     <th scope="col">TGL_BUAT</th>
                     <th scope="col">TGL_UBAH</th>
                     <th scope="col" style="width: 20%">ACTIONS</th>
@@ -25,8 +26,9 @@
                         <td>{{ $id++ }}</td>
                         <td>{{ $poster->title }}</td>
                         <td class="text-center">
-                            <img src="{{ Storage::url('img/' . $poster->image) }}" class="rounded mx-auto" style="width: 200px; object-fit: cover;">
+                            <img src="{{ Storage::url('img/' . $poster->image) }}" class="rounded mx-auto" style="width: 200px; height:300px; object-fit: cover;">
                         </td>
+                        <td class="text-left w-20"><div class="block max-w-full overflow-auto break-words rounded">{!! $poster->deskripsi ? Str::limit($poster->deskripsi, 50) : 'Tidak ada deskripsi apapun' !!}</div></td>
                         <td>{{ $poster->created_at }}</td>
                         <td>{{ $poster->updated_at }}</td>
                         <td class="">
@@ -53,6 +55,7 @@
                     <th scope="col">NO</th>
                     <th scope="col">TITLE</th>
                     <th scope="col">IMAGE</th>
+                    <th scope="col">DESKRIPSI</th>
                     <th scope="col">TGL_BUAT</th>
                     <th scope="col">TGL_UBAH</th>
                     <th scope="col" style="width: 20%">ACTIONS</th>

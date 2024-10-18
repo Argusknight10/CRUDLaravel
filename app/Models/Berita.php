@@ -25,14 +25,13 @@ class Berita extends Model
         return $this->belongsTo(Kategori::class, 'kategori_id');
     }
 
-    public function scopeFilter(Builder $query, array $filters){
-        $query->when(($filters['search']) ? $filters['search'] : false, function($query, $search){
-            $query->where('title', 'like', '%'.$search.'%')
+    public function scopeFilter(Builder $query, array $filters) {
+        $query->when($filters['search'] ?? false, function($query, $search) {
+            $query->where('title', 'like', '%' . $search . '%')
+                  ->orWhere('deskripsi', 'like', '%' . $search . '%')
                   ->orWhereHas('kategori', function($query) use ($search) {
-                    $query->where('name', 'like', '%' . $search . '%');
-            });
+                      $query->where('name', 'like', '%' . $search . '%');
+                  });
         });
-
-        // dd($filters);
     }
 }
