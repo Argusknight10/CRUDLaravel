@@ -43,14 +43,19 @@
             </div>
 
             <div class="form-group mb-3">
-                <select class="form-select font-semibold bg-success my-1 text-black w-52 p-2 rounded shadow appearance-none @error('kategori') is-invalid @enderror" id="kategori" name="kategori">
-                    <option value="{{ old('kategori', $beritas->kategori) }}" disabled selected>{{ $beritas->kategori->name }}</option>
-                    @foreach ($kategori as $k) 
-                        <option value="{{ $k->id }} {{ old('kategori') == $k->id ? 'selected' : '' }}" class="bg-stone-900 text-white" >
-                            {{ $k->name }}
-                        </option>
-                    @endforeach
-                </select>
+                <div class="relative inline-block w-52">
+                    <select class="cursor-pointer form-select font-semibold bg-success my-1 text-black w-52 p-2 rounded shadow appearance-none @error('kategori') is-invalid @enderror" id="kategori" name="kategori">
+                        <option value="{{ old('kategori', $beritas->kategori) }}" disabled selected>{{ $beritas->kategori->name }}</option>
+                        @foreach ($kategori as $k) 
+                            <option value="{{ $k->id }} {{ old('kategori') == $k->id ? 'selected' : '' }}" class="bg-stone-900 text-white" >
+                                {{ $k->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-black">
+                        <i class="fa-solid fa-arrow-down"></i>
+                    </div>
+                </div>
 
                 @error('kategori')
                     <div class="alert alert-error mt-2">
