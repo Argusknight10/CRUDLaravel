@@ -72,8 +72,9 @@ class KategoriController extends Controller
 
     public function destroy($id): RedirectResponse{
         Gate::authorize('admin');
+        
         $kategoris = Kategori::findOrFail($id);
-
+        $kategoris->beritas()->update(['kategori_id' => null]);
         $kategoris->delete();
 
         return redirect()->route('kategoris.index')->with(['success' => 'Kategori Berhasil Dihapus!']);

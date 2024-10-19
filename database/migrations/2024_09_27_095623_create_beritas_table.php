@@ -17,8 +17,9 @@ return new class extends Migration
             $table->string('slug');
             $table->string('image');
             $table->foreignId('kategori_id')
+                    ->nullable()
                     ->constrained('kategoris') 
-                    ->onDelete('cascade');    
+                    ->nullOnDelete();
             $table->text('deskripsi');
             $table->timestamps();
         });
