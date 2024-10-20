@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StoreBeritaRequest;
+use App\Http\Requests\UpdateBeritaRequest;
 
 class BeritaController extends Controller
 {
@@ -33,28 +35,23 @@ class BeritaController extends Controller
         return view('beritas.create', ['title' => 'ADD NEWS', 'kategori' => Kategori::all()]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreBeritaRequest $request): RedirectResponse
     {
-        $request->validate([
-            'title'         => 'required|unique:beritas',
-            'image'         => 'required|image|mimes:jpeg,jpg,png|max:500000000',
-            'kategori'      => 'required',
-            'deskripsi'   => 'required|min:10',
-        ]);
+        $validatedData = $request->validated();
 
         $image = $request->file('image');
         $path = $image->store('img', 'public');
         $filename = basename($path);
 
         // dd($image);
-        $slug = Str::slug($request->title);
+        $slug = Str::slug($validatedData['title']);
 
         Berita::create([
-            'title'         => $request->title,
+            'title'         => $validatedData['title'],
             'slug'          => $slug,
             'image'         => $filename,
-            'kategori_id'   => $request->kategori,
-            'deskripsi'     => $request->deskripsi,
+            'kategori_id'   => $validatedData['kategori'],
+            'deskripsi'     => $validatedData['deskripsi'],
         ]);
 
         return redirect()->route('beritas.index')->with(['success' => 'Data Berhasil Disimpan!']);
@@ -76,19 +73,11 @@ class BeritaController extends Controller
         return view('beritas.edit', ['title' => 'EDIT NEWS', 'beritas' => $beritas, 'kategori' => Kategori::all()]);
     }
 
-    public function update(Request $request, $id): RedirectResponse
+    public function update(UpdateBeritaRequest $request, $id): RedirectResponse
     {
         $beritas = Berita::findOrFail($id);
 
-        $request->validate([
-            'title'         => [
-                'required',
-                Rule::unique('beritas')->ignore($beritas->id)
-            ],
-            'image'       => 'nullable|image|mimes:jpeg,jpg,png|max:500000000',
-            'kategori'    => 'nullable',
-            'deskripsi'   => 'required|min:10',
-        ]);
+        $validatedData = $request->validated();
 
         if ($request->hasFile('image')) {
             if ($beritas->image) {
@@ -107,14 +96,14 @@ class BeritaController extends Controller
             $kategoriId = $beritas->kategori_id;
         }
 
-        $slug = Str::slug($request->title);
+        $slug = Str::slug($validatedData['title']);
 
         $beritas->update([
-            'title'         => $request->title,
+            'title'         => $validatedData['title'],
             'slug'          => $slug,
             'image'         => $filename,
             'kategori_id'   => $kategoriId,
-            'deskripsi'     => $request->deskripsi,
+            'deskripsi'     => $validatedData['deskripsi'],
         ]);
 
         return redirect()->route('beritas.index')->with(['success' => 'Perubahan Berhasil Disimpan!']);

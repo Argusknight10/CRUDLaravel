@@ -10,10 +10,13 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StorePosterRequest;
+use App\Http\Requests\UpdatePosterRequest;
 
 class PosterController extends Controller
 {
-    public function index(Request $request): View{
+    public function index(Request $request): View
+    {
         Gate::authorize('admin');
         $search = $request->input('search');
         if ($search) {
@@ -31,26 +34,22 @@ class PosterController extends Controller
         return view('posters.create', ['title' => 'ADD POSTERS']);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(StorePosterRequest $request): RedirectResponse
     {
-        $request->validate([
-            'title'         => 'required|unique:posters',
-            'image'         => 'required|image|mimes:jpeg,jpg,png|max:500000000',
-            'deskripsi'   => 'nullable|min:10',
-        ]);
+        $validatedData = $request->validated();
 
-        $image = $request->file('image');
+        $image = $validatedData->file('image');
         $path = $image->store('img', 'public');
         $filename = basename($path);
 
         // dd($image);
-        $slug = Str::slug($request->title);
+        $slug = Str::slug($validatedData['title']);
 
         Poster::create([
-            'title'         => $request->title,
+            'title'         => $validatedData['title'],
             'slug'          => $slug,
             'image'         => $filename,
-            'deskripsi'     => $request->deskripsi,
+            'deskripsi'     => $validatedData['deskripsi'],
         ]);
 
         return redirect()->route('posters.index')->with(['success' => 'Data Berhasil Disimpan!']);
@@ -62,8 +61,8 @@ class PosterController extends Controller
         // $beritaLain = Berita::paginate(10);
 
         return view('posters.show', [
-            'title' => 'DETAIL NEWS', 
-            'posters' => $posters, 
+            'title' => 'DETAIL NEWS',
+            'posters' => $posters,
             // 'beritaLain' => $beritaLain
         ]);
     }
@@ -76,18 +75,11 @@ class PosterController extends Controller
         return view('posters.edit', ['title' => 'EDIT NEWS', 'posters' => $posters]);
     }
 
-    public function update(Request $request, $id): RedirectResponse
+    public function update(UpdatePosterRequest $request, $id): RedirectResponse
     {
         $posters = Poster::findOrFail($id);
 
-        $request->validate([
-            'title'         => [
-                'required',
-                Rule::unique('posters')->ignore($posters->id)
-            ],
-            'image'       => 'nullable|image|mimes:jpeg,jpg,png|max:500000000',
-            'deskripsi'   => 'nullable|min:10',
-        ]);
+        $validatedData = $request->validated();
 
         if ($request->hasFile('image')) {
             if ($posters->image) {
@@ -101,13 +93,13 @@ class PosterController extends Controller
             $filename = $posters->image;
         }
 
-        $slug = Str::slug($request->title);
+        $slug = Str::slug($validatedData['title']);
 
         $posters->update([
-            'title'         => $request->title,
+            'title'         => $request['title'],
             'slug'          => $slug,
             'image'         => $filename,
-            'deskripsi'     => $request->deskripsi,
+            'deskripsi'     => $request['deskripsi'],
         ]);
 
         return redirect()->route('posters.index')->with(['success' => 'Perubahan Berhasil Disimpan!']);

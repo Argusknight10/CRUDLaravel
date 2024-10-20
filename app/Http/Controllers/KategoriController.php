@@ -7,10 +7,12 @@ use Illuminate\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StoreKategoriRequest;
+use App\Http\Requests\UpdateKategoriRequest;
 
 class KategoriController extends Controller
 {
@@ -31,16 +33,14 @@ class KategoriController extends Controller
         return view('kategoris.create', ['title' => 'ADD CATEGORY', 'kategori' => Kategori::all()]);
     }
 
-    public function store(Request $request): RedirectResponse{
+    public function store(StoreKategoriRequest $request): RedirectResponse{
 
-        $request->validate([
-            'name'         => 'required|uppercase|unique:kategoris',
-        ]);
+        $validatedData = $request->validated();
 
-        $slug = Str::slug($request->name);
+        $slug = Str::slug($validatedData['name']);
 
         Kategori::create([
-            'name'         => $request->name,
+            'name'         => $validatedData['name'],
             'slug'          => $slug,
         ]);
         
@@ -54,21 +54,16 @@ class KategoriController extends Controller
         return view('kategoris.edit', ['title' => 'EDIT CATEGORY', 'kategoris' => $kategoris]);
     }
 
-    public function update(Request $request, $id): RedirectResponse{
+    public function update(UpdateKategoriRequest $request, $id): RedirectResponse{
 
         $kategoris = Kategori::findOrFail($id);
 
-        $request->validate([
-            'name'         => [
-                'required|uppercase',
-                Rule::unique('kategoris')->ignore($kategoris->id)
-            ]
-        ]);
+        $validatedData = $request->validated();
 
-        $slug = Str::slug($request->name);
+        $slug = Str::slug($validatedData['name']);
 
         $kategoris->update([
-            'name'         => $request->name,
+            'name'         => $validatedData['name'],
             'slug'          => $slug,
         ]);
 
