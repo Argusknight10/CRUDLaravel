@@ -13,11 +13,16 @@ use Illuminate\Support\Facades\Storage;
 
 class PosterController extends Controller
 {
-    public function index(): View
-    {
+    public function index(Request $request): View{
         Gate::authorize('admin');
-        $posters = Poster::latest()->paginate(5);    
-        return view('posters.index', ['title' => 'POSTERS PAGE', 'posters' => $posters]);
+        $search = $request->input('search');
+        if ($search) {
+            $posters = Poster::filter($request->only(['search']))->paginate(10);
+        } else {
+            $posters = Poster::latest()->paginate(10);
+        }
+
+        return view('posters.index', ['title' => 'POSTERS PAGE', 'posters' => $posters, 'search' => $search]);
     }
 
     public function create(): View

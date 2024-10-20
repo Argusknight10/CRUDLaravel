@@ -14,11 +14,16 @@ use Illuminate\Support\Facades\Storage;
 
 class KategoriController extends Controller
 {
-    public function index() : View{
+    public function index(Request $request): View{
         Gate::authorize('admin');
+        $search = $request->input('search');
+        if ($search) {
+            $kategoris = Kategori::filter($request->only(['search']))->paginate(10);
+        } else {
+            $kategoris = Kategori::latest()->paginate(10);
+        }
 
-        $kategoris = Kategori::latest()->paginate(10);
-        return view('kategoris.index', ['title' => 'CATEGORY PAGE', 'kategoris' => $kategoris]) ;
+        return view('kategoris.index', ['title' => 'KATEGORIS PAGE', 'kategoris' => $kategoris, 'search' => $search]);
     }
 
     public function create() : View{
@@ -72,7 +77,7 @@ class KategoriController extends Controller
 
     public function destroy($id): RedirectResponse{
         Gate::authorize('admin');
-        
+
         $kategoris = Kategori::findOrFail($id);
         $kategoris->beritas()->update(['kategori_id' => null]);
         $kategoris->delete();

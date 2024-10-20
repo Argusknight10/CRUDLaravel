@@ -1,6 +1,18 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
 
+    <section class="mb-5">
+        <form action="" class="flex justify-end w-full">
+            <div class="relative flex-grow">
+                <input type="text" placeholder="Search..." type="search" id="search" name="search" class="input input-bordered w-full pl-10 pr-4 rounded-r-none" />
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
+            </div>
+            <div>
+                <button type="submit" class="py-3 px-5 text-sm font-medium text-center text-white btn btn-outline rounded-l-none" autocomplete="off">Search</button>
+            </div>
+        </form>
+    </section>
+    
     <div class="overflow-x-auto bg-base-300 p-5 rounded-lg">
         <div class="flex py-5">
             <a href="{{ route('posters.create') }}" class="btn btn-square btn-success"><i class="fa-solid fa-plus"></i></a>

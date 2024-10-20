@@ -15,14 +15,16 @@ use Illuminate\Support\Facades\Storage;
 
 class BeritaController extends Controller
 {
-    public function index(): View
-    {
+    public function index(Request $request): View{
         Gate::authorize('admin');
+        $search = $request->input('search');
+        if ($search) {
+            $beritas = Berita::filter($request->only(['search']))->paginate(10);
+        } else {
+            $beritas = Berita::latest()->paginate(10);
+        }
 
-        $beritas = Berita::latest()->paginate(10);
-        // return view('beritas.index', compact('beritas')); // Sama Saja
-
-        return view('beritas.index', ['title' => 'NEWS PAGE', 'beritas' => $beritas]);
+        return view('beritas.index', ['title' => 'BERITAS PAGE', 'beritas' => $beritas, 'search' => $search]);
     }
 
     public function create(): View
